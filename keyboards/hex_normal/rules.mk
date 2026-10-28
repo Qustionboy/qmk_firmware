@@ -1,1 +1,6 @@
 BOARD = GENERIC_RP_RP2040
+
+CUSTOM_MATRIX = yes
+SRC += matrix.c
+
+VIA_ENABLE = no
