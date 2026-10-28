@@ -1,0 +1,26 @@
+
+name: Build HEX RP2040
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: ghcr.io/qmk/qmk_cli:latest
+
+    steps:
+      - name: Checkout QMK
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Compile firmware
+        run: qmk compile -kb hex_normal -km default -j 2
+
+      - name: Upload UF2
+        uses: actions/upload-artifact@v4
+        with:
+          name: hex_normal_rp2040
+          path: "*.uf2"
+          if-no-files-found: error
