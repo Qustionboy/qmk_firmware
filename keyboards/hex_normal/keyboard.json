@@ -9,17 +9,10 @@
     "pid": "0x2040",
     "device_version": "1.0.0"
   },
-  "diode_direction": "ROW2COL",
+  "diode_direction": "COL2ROW",
   "matrix_pins": {
-    "cols": ["GP0", "GP1", "GP2", "GP3", "GP4"]
-    "rows": [
-      "GP5",
-      "GP6",
-      "GP7",
-      "GP8",
-      "GP9",
-      "GP10"
-    ]
+      "cols": ["GP0", "GP1", "GP2", "GP3", "GP4"],
+      "rows": ["GP5", "GP6", "GP7", "GP8", "GP9", "GP10"]
   },
   "features": {
     "bootmagic": false,
