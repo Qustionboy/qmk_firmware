@@ -1,0 +1,51 @@
+
+name: Build HEX Normal RP2040
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    container:
+      image: ghcr.io/qmk/qmk_cli:latest
+
+    steps:
+      - name: Configure Git
+        run: git config --global --add safe.directory '*'
+
+      - name: Checkout custom keyboard
+        uses: actions/checkout@v4
+        with:
+          path: custom
+
+      - name: Download QMK firmware
+        uses: actions/checkout@v4
+        with:
+          repository: qmk/qmk_firmware
+          path: qmk_firmware
+          submodules: recursive
+
+      - name: Install custom keyboard
+        run: |
+          cp -R custom/keyboards/hex_normal \
+                qmk_firmware/keyboards/
+
+      - name: Compile RP2040 firmware
+        working-directory: qmk_firmware
+        run: |
+          qmk compile \
+            -kb hex_normal \
+            -km default \
+            -j 2
+
+      - name: Upload UF2 firmware
+        uses: actions/upload-artifact@v4
+        with:
+          name: HEX_Normal_RP2040
+          path: qmk_firmware/*.uf2
+          if-no-files-found: error
