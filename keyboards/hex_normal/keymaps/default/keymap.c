@@ -1,5 +1,6 @@
 
 #include QMK_KEYBOARD_H
+#include "wait.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
@@ -11,3 +12,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_Z, KC_1, KC_2, KC_3, KC_4
     )
 };
+
+void matrix_scan_user(void) {
+    wait_us(100);
+}
